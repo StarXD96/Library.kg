@@ -1,0 +1,14 @@
+<h3>Пользователи</h3>
+
+<ul>
+    {% for i in users %}
+    <li>
+        <h4>{{ i.username }}</h4>
+    </li>
+    {% endfor %}
+</ul>
+
+<form action="{% url 'users:logout' %}">
+    {% csrf_token %}
+    <button type="submit">Выйти из аккаунта</button>
+</form>
