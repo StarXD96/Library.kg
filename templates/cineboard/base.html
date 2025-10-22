@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CineBoard</title>
+</head>
+<body>
+  <header>
+    <h1><a href="{% url 'cineboard:film_list' %}">🎬 CineBoard</a></h1>
+    <nav>
+      {% if user.is_authenticated %}
+        Привет, {{ user.username }} |
+        <a href="{% url 'cineboard:film_create' %}">Добавить фильм</a> |
+        <a href="{% url 'cineboard:logout' %}">Выйти</a>
+      {% else %}
+        <a href="{% url 'cineboard:login' %}">Вход</a> |
+        <a href="{% url 'cineboard:register' %}">Регистрация</a>
+      {% endif %}
+    </nav>
+    <hr>
+  </header>
+
+  {% block content %}{% endblock %}
+</body>
+</html>

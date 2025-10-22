@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Фильмы{% endblock %}
+{% block content %}
+
+<h1 class="text-center mb-4">🎬 Все фильмы</h1>
+
+<form method="GET" action="{% url 'film_search' %}" class="text-center mb-4">
+    <input type="text" name="q" placeholder="Поиск по названию" class="form-control w-50 d-inline" value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-primary">Найти</button>
+</form>
+
+<div class="row justify-content-center">
+    {% for film in films %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ film.image.url }}" class="card-img-top" alt="{{ film.title }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ film.title }}</h5>
+                    <p class="card-text">{{ film.genre }}</p>
+                    <a href="{% url 'film_detail' film.id %}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center">Фильмов пока нет 😢</p>
+    {% endfor %}
+</div>
+{% endblock %}

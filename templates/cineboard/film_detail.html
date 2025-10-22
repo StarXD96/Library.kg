@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ film.title }}{% endblock %}
+{% block content %}
+<div class="card mb-4">
+    <img src="{{ film.image.url }}" class="card-img-top" alt="{{ film.title }}">
+    <div class="card-body">
+        <h2>{{ film.title }}</h2>
+        <p><strong>Жанр:</strong> {{ film.genre }}</p>
+        <p>{{ film.description }}</p>
+        <p><small>Добавлен: {{ film.created_at|date:"d.m.Y H:i" }}</small></p>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'film_edit' film.id %}" class="btn btn-warning">Редактировать</a>
+            <a href="{% url 'film_delete' film.id %}" class="btn btn-danger">Удалить</a>
+        {% endif %}
+    </div>
+</div>
+
+<h3>Отзывы:</h3>
+<ul>
+    {% for review in film.reviews.all %}
+        <li>
+            ⭐ {{ review.mark }} — {{ review.review_text }}
+            <br><small>{{ review.created_at|date:"d.m.Y" }}</small>
+        </li>
+    {% empty %}
+        <p>Пока нет отзывов.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
